@@ -25,6 +25,9 @@ backend/.env
 backend/config.json
 *.local
 
+# Uploads / generated files
+backend/uploads/ 
+
 # Editor and OS files
 netlify.toml
 .vscode/
