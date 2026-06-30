@@ -174,45 +174,17 @@ app.get("/get-user", authenticateToken, async (req, res) => {
 });
 
 //Route to handle image upload
-// app.post("/image-upload", upload.single('image'), async (req, res) => {
-//     try {
-//         if (!req.file) {
-//             return res.status(400).json({ error: true, message: "No Image uploaded" });
-//         }
-//         const imageUrl = `${SERVER_URL}/uploads/${req.file.filename}`;
-//         res.status(200).json({ imageUrl });
-//     } catch (error) {
-//         res.status(500).json({ error: true, message: error.message });
-//     }
-// });
-//temp
-app.post(
-  "/image-upload",
-  (req, res, next) => {
-    console.log("1. Request received");
-    next();
-  },
-  upload.single("image"),
-  (req, res) => {
-    console.log("2. Multer finished");
-
-    if (!req.file) {
-      console.log("3. No file uploaded");
-      return res.status(400).json({
-        error: true,
-        message: "No Image uploaded",
-      });
+app.post("/image-upload", upload.single('image'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: true, message: "No Image uploaded" });
+        }
+        const imageUrl = `${SERVER_URL}/uploads/${req.file.filename}`;
+        res.status(200).json({ imageUrl });
+    } catch (error) {
+        res.status(500).json({ error: true, message: error.message });
     }
-
-    console.log("4. File:", req.file);
-
-    const imageUrl = `${SERVER_URL}/uploads/${req.file.filename}`;
-
-    console.log("5. Sending response");
-
-    res.status(200).json({ imageUrl });
-  }
-);
+});
 
 //Delete an image from uploads folder
 app.delete("/delete-image", async (req, res) => {
