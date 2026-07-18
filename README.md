@@ -125,6 +125,21 @@ This repo includes `netlify.toml` configured for the Vite app in `frontend/trave
 
 Client-side routing fallback is configured through `frontend/travel-story-app/public/_redirects`.
 
+### GitHub Actions CI/CD
+
+The repository also includes a GitHub Actions workflow at [/.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml) that:
+
+- runs backend dependency installation and JavaScript syntax checks on every push and pull request to `main`
+- runs frontend linting and production builds on every push and pull request to `main`
+- deploys the backend to Render on pushes to `main`
+- deploys the frontend to Netlify on pushes to `main`
+
+For the deploy jobs, add these repository secrets in GitHub:
+
+- `RENDER_DEPLOY_HOOK_URL`
+- `NETLIFY_AUTH_TOKEN`
+- `NETLIFY_SITE_ID`
+
 ## Important Note About Images
 
 Uploaded files are currently stored in `backend/uploads`. On Render, local disk is ephemeral, so files can be lost after redeploy/restart. For production, use object storage (Cloudinary, S3, etc.) for persistent images.
